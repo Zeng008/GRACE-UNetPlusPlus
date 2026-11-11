@@ -4,11 +4,11 @@ __pycache__/
 venv/
 .env
 .env.*
-data/
-datasets/
-runs/
-evaluation/
-summary/
+/data/
+/datasets/
+/runs/
+/evaluation/
+/summary/
 *.pth
 *.pt
 *.ckpt
