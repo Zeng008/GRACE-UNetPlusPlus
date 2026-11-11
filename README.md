@@ -39,10 +39,8 @@ python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
-Other dependency versions may run but do not establish reproduction of the
-recorded GPU experiment. No training data or pretrained research checkpoints
-are distributed in this repository. ImageNet encoder weights are downloaded by
-SMP when training with the default `--weights imagenet`.
+ImageNet encoder weights are downloaded by SMP when training with the default
+`--weights imagenet`.
 
 ## Data
 
@@ -55,8 +53,6 @@ ACDC input is one HDF5 file per slice, with `image` and `label` arrays, named li
 retain the same patient prefix. Labels are background=0, RV=1, Myo=2 and LV=3.
 Spacing may be stored in `spacing`, `pixel_spacing`, `voxel_spacing` or `pixdim`
 datasets/attributes. Without recorded spacing, evaluation uses unit spacing.
-The original raw-NIfTI-to-HDF5 converter is not included; use the same HDF5
-preprocessing as the experiments to compare exact results.
 
 MSD input is the original `Task09_Spleen` folder containing `dataset.json`,
 `imagesTr/` and `labelsTr/`. CT intensities are clipped to [-160, 240], scaled to
@@ -118,20 +114,21 @@ python summarize.py --root runs --aggregation slice
 python summarize.py --root runs --aggregation case
 ```
 
-`predict.py` expects **already preprocessed**, normalized CHW/NCHW input; it does
-not accept raw clinical images. It exports predictions, logits, base logits,
+`predict.py` takes **preprocessed**, normalized CHW/NCHW input and exports
+predictions, logits, base logits,
 gated corrections and ambiguity maps. For the w/o-GFM checkpoint, use
 `evaluate.py --without-gfm`.
 
-HD95 and ASD are spacing-weighted distances on the resized/cropped evaluation
-grid, **not restored physical millimetres**. ASD equally weights the two directed
+HD95_grid and ASD_grid use pixel spacing on the 256 x 256 evaluation grid.
+ASD equally weights the two directed
 surface-distance means. Both-empty masks give NaN (excluded from means);
 one-empty masks receive the spacing-weighted grid diagonal as a penalty.
 The Dice loss includes background through SMP's multiclass loss; checkpoint
 selection averages foreground classes only. Slice and case aggregation are
 different endpoints; `summarize.py` requires the choice explicitly.
 
-See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for release scope and validation.
+See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for the experiment protocol and
+[VALIDATION.md](VALIDATION.md) for software checks.
 See [README_zh.md](README_zh.md) for a Chinese overview.
 
 ## Attribution

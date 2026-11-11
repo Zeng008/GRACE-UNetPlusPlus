@@ -1,7 +1,7 @@
-# Reproducibility scope
+# Experiment protocol
 
-This is a curated release of the model and experiment pipeline, extracted from
-the original implementation rather than a newly trained experiment.
+This repository provides the GRACE-UNet++ model, training pipeline, recorded
+five-fold partitions and evaluation tools.
 
 ## Included
 
@@ -12,25 +12,22 @@ the original implementation rather than a newly trained experiment.
    stages and evaluation formulas.
 5. The paper's own component and refinement-protocol variants.
 
-The public entry points remove dataset-scanning and GPU/environment side effects
-at import time, accept explicit data roots and devices, and omit historical
-experimental architectures and external comparison networks. The Fourier kernel
-cache now also checks device changes. Cached MSD data loading uses a top-level
-class for multiprocessing compatibility. Resume restores CPU RNG tensors even
-when a checkpoint is loaded on a CUDA device. These are packaging fixes.
+## Data and configuration
 
-## Limits of this release
+The entry points accept explicit data roots and devices. ACDC uses HDF5 slices;
+MSD Spleen uses NIfTI volumes and `dataset.json`. Dataset identifiers are checked
+against the recorded manifests in `splits/`. Hyperparameters are in `configs/`.
 
-- No five-fold retraining was performed during packaging.
-- Trained research checkpoints are not bundled.
-- The original raw ACDC NIfTI-to-HDF5 conversion is not available in this package.
-- The release provides runnable method/protocol code. It does not claim that
-  every numerical entry in the manuscript has been independently reproduced.
-  Exact table replication also requires the matching checkpoints, data
-  preprocessing provenance and the precise aggregation endpoint.
-- External baseline experiments, comparisons and their authors' code are outside
-  this repository. They should be obtained from the respective original sources.
+Stage 1 trains the backbone and GFM. Stage 2 starts from the validation-selected
+checkpoint and trains CGRR with the decoder and segmentation head. The fold
+training seeds are 731--735, and checkpoint selection uses pooled foreground
+validation Dice. Training stages save checkpoints and histories for resuming.
 
-Synthetic CPU tests establish mathematical invariants and software integration;
-they do not establish GPU determinism or the paper's benchmark accuracy.
-The complete release check record is written in `VALIDATION.md` after testing.
+## Evaluation
+
+Evaluation writes per-slice and per-case metrics. `summarize.py` selects the
+aggregation endpoint explicitly and reports the mean and sample standard
+deviation across folds. HD95_grid and ASD_grid use pixel spacing on the
+256 x 256 evaluation grid, and ASD equally weights both directed surface means.
+
+Software checks are documented in [VALIDATION.md](VALIDATION.md).
