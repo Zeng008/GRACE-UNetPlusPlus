@@ -1,0 +1,15 @@
+# Recorded paper environment: Python 3.10 or 3.11, PyTorch 2.1.2 / CUDA 12.1.
+# Install the appropriate torch/torchvision wheels for your hardware separately.
+torch==2.1.2
+torchvision==0.16.2
+segmentation-models-pytorch==0.5.0
+timm==0.9.16
+albumentations==1.4.3
+numpy==1.26.4
+opencv-python-headless==4.9.0.80
+pandas==2.2.3
+scipy==1.13.1
+scikit-learn==1.5.2
+h5py==3.11.0
+nibabel==5.2.1
+tqdm>=4.66,<5

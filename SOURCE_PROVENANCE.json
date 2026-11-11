@@ -1,0 +1,67 @@
+{
+  "description": "Original implementation files and extracted symbols; hashes identify the input sources, not a claim of unchanged files.",
+  "files": [
+    {
+      "source": "msd.py",
+      "sha256": "196c54ea66e2537ddfb8485dae81b2d14bf87dd3d3338ca97c0757ae1fa1480e",
+      "symbols": [
+        "GravityPhysics2D"
+      ]
+    },
+    {
+      "source": "refine_opt/models.py",
+      "sha256": "0b06e860322cf9cbfb41664578aebfed5e45287a68d10b2c49aa9ccb6949e286",
+      "symbols": [
+        "GravityMLPGate",
+        "ConfidenceGuidedRefiner",
+        "GravityMLPRefineUNetPP"
+      ]
+    },
+    {
+      "source": "reviewer_revision/gfm_operators.py",
+      "sha256": "624fa958bda51b2bcb89a5c8250157b5defd17ffa97f693704da9ba6494ebfe9",
+      "symbols": [
+        "NoGFMRefineUNetPP"
+      ]
+    },
+    {
+      "source": "acdc.py",
+      "sha256": "9505438df94ece27d5cea0fb45ff1141934fcaf04b2629f0fa30c0c0e2baf36f",
+      "symbols": [
+        "extract_patient_id",
+        "scan_acdc_cases",
+        "normalize_inplane_spacing",
+        "extract_inplane_spacing",
+        "ACDCH5Dataset",
+        "seed_worker",
+        "combined_loss"
+      ]
+    },
+    {
+      "source": "msd.py",
+      "sha256": "196c54ea66e2537ddfb8485dae81b2d14bf87dd3d3338ca97c0757ae1fa1480e",
+      "symbols": [
+        "resolve_path",
+        "extract_case_id",
+        "scan_msd_cases",
+        "normalize_inplane_spacing",
+        "extract_inplane_spacing",
+        "MSDNiiDataset",
+        "seed_worker",
+        "combined_loss"
+      ]
+    },
+    {
+      "source": "reviewer_revision/splits.py",
+      "sha256": "b7563f4b4764a724032f2cee9c1f5ee535d22317a87f2c12d020458df81c2498"
+    },
+    {
+      "source": "reviewer_revision/training.py",
+      "sha256": "9728b55313142ebec8787158862639dc722d21291901d8fbeffc1c0de7f9daab"
+    },
+    {
+      "source": "reviewer_revision/evaluation.py",
+      "sha256": "4a6f3c03ed41a5e6e64a970e181504244b07e71a8616979f321bace7f72db592"
+    }
+  ]
+}

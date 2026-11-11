@@ -1,0 +1,40 @@
+{
+  "dataset": "acdc",
+  "in_channels": 1,
+  "classes": 4,
+  "encoder": "efficientnet-b0",
+  "encoder_weights": "imagenet",
+  "image_size": 256,
+  "batch_size": 16,
+  "train_seed": 731,
+  "split_seed": 20261027,
+  "stage1": {
+    "epochs": 50,
+    "lr": 0.0004,
+    "patience": 8,
+    "min_epochs": 8
+  },
+  "stage2": {
+    "epochs": 20,
+    "lr": 0.0001,
+    "patience": 8,
+    "min_epochs": 8
+  },
+  "optimizer": {
+    "name": "AdamW",
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08
+  },
+  "scheduler": {
+    "name": "CosineAnnealingWarmRestarts",
+    "T_0": 10,
+    "T_mult": 2
+  },
+  "loss": "0.5 CrossEntropyLoss + 0.5 SMP multiclass DiceLoss",
+  "selection": "pooled foreground validation Dice",
+  "metric_unit": "spacing-weighted 256x256 evaluation grid; not restored physical mm"
+}
